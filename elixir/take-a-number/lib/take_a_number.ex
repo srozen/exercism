@@ -1,9 +1,9 @@
 defmodule TakeANumber do
   def start() do
-    spawn(__MODULE__, :counter, [0])
+    spawn(&counter/0)
   end
 
-  defp counter(number) do
+  defp counter(number \\ 0) do
     receive do
       {:take_a_number, sender} ->
         new_number = number+1
