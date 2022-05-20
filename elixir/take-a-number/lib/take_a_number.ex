@@ -3,7 +3,7 @@ defmodule TakeANumber do
     spawn(__MODULE__, :counter, [0])
   end
 
-  def counter(number) do
+  defp counter(number) do
     receive do
       {:take_a_number, sender} ->
         new_number = number+1
