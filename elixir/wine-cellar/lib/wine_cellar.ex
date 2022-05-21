@@ -12,19 +12,9 @@ defmodule WineCellar do
     country_opt = Keyword.get(opts, :country, false)
 
     cellar
-    |> filter_by_color(color)
+    |> Keyword.get_values(color)
     |> filter_by_year(year_opt)
     |> filter_by_country(country_opt)
-  end
-
-  defp filter_by_color(wines, color) do
-    wines
-    |> Enum.flat_map(fn wine ->
-      case wine do
-        {^color, wine_description} -> [wine_description]
-        _ -> []
-      end
-    end)
   end
 
   # The functions below do not need to be modified.
