@@ -13,14 +13,27 @@ defmodule WineCellar do
 
     cellar
     |> Keyword.get_values(color)
-    |> filter_by_year(year_opt)
-    |> filter_by_country(country_opt)
+    |> year_filter(year_opt)
+    |> country_filter(country_opt)
+  end
+
+  defp year_filter(wines, year) do
+    case year do
+      false -> wines
+      _ -> filter_by_year(wines, year)
+    end
+  end
+
+  defp country_filter(wines, country) do
+    case country do
+      false -> wines
+      _ -> filter_by_country(wines, country)
+    end
   end
 
   # The functions below do not need to be modified.
 
   defp filter_by_year(wines, year)
-  defp filter_by_year(wines, false), do: wines
   defp filter_by_year([], _year), do: []
 
   defp filter_by_year([{_, year, _} = wine | tail], year) do
@@ -32,7 +45,6 @@ defmodule WineCellar do
   end
 
   defp filter_by_country(wines, country)
-  defp filter_by_country(wines, false), do: wines
   defp filter_by_country([], _country), do: []
 
   defp filter_by_country([{_, _, country} = wine | tail], country) do
