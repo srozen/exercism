@@ -1,9 +1,11 @@
 defmodule BasketballWebsite do
   def extract_from_path(data, path) do
-    # Please implement the extract_from_path/2 function
+    String.split(path, ".")
+    |> Enum.reduce(data, fn x, acc -> acc[x] end)
   end
 
   def get_in_path(data, path) do
-    # Please implement the get_in_path/2 function
+    path_list = String.split(path, ".")
+    get_in(data, path_list)
   end
 end
