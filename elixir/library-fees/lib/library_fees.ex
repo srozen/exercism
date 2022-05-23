@@ -33,16 +33,29 @@ defmodule LibraryFees do
   end
 
   def monday?(datetime) do
-    # Please implement the monday?/1 function
-    :ok
+    Date.day_of_week(datetime) == 1
   end
 
   def calculate_late_fee(checkout, return, rate) do
-    # Please implement the calculate_late_fee/3 function
-    :ok
+    expected_return_date = checkout |> datetime_from_string() |> return_date()
+    return_date = datetime_from_string(return)
+
+    compute_late_fee(expected_return_date, return_date, rate)
+    |> apply_monday_reduction(return_date)
   end
 
   defp naive_datetime_to_date(%NaiveDateTime{year: year, month: month, day: day} = naive_datetime) do
     Date.new!(year, month, day)
+  end
+
+  defp compute_late_fee(checkout, return, rate) do
+    days_late(checkout, return) * rate
+  end
+
+  defp apply_monday_reduction(fee, return) do
+    case monday?(return) do
+      true -> trunc(fee * 0.5)
+      false -> fee
+    end
   end
 end
