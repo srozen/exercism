@@ -44,7 +44,7 @@ defmodule LibraryFees do
     |> apply_monday_reduction(return_date)
   end
 
-  defp naive_datetime_to_date(%NaiveDateTime{year: year, month: month, day: day} = naive_datetime) do
+  defp naive_datetime_to_date(%NaiveDateTime{year: year, month: month, day: day}) do
     Date.new!(year, month, day)
   end
 
