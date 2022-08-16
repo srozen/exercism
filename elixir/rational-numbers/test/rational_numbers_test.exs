@@ -126,7 +126,7 @@ defmodule RationalNumbersTest do
     end
 
     test "Raise a negative rational number to an odd negative integer power" do
-      assert RationalNumbers.pow_rational({-3, 5}, -3) == {125, -27}
+      assert RationalNumbers.pow_rational({-3, 5}, -3) == {-125, 27}
     end
 
     test "Raise zero to an integer power" do

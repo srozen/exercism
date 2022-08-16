@@ -54,11 +54,13 @@ defmodule RationalNumbers do
 
   def pow_rational({a, b}, n) when n > 0 do
     {a ** n, b ** n}
+    |> reduce()
   end
 
   def pow_rational({a, b}, n) when n < 0 do
     m = Kernel.abs(n)
     {b ** m, a ** m}
+    |> reduce()
   end
 
   @doc """
