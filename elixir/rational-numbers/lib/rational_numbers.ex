@@ -58,7 +58,7 @@ defmodule RationalNumbers do
 
   def pow_rational({a, b}, n) when n < 0 do
     m = Kernel.abs(n)
-    {b ** n, a ** n}
+    {b ** m, a ** m}
   end
 
   @doc """
@@ -66,7 +66,7 @@ defmodule RationalNumbers do
   """
   @spec pow_real(x :: integer, n :: rational) :: float
   def pow_real(x, {a, b}) do
-    {a ** x, b ** x}
+    nth_root(x**a, b)
   end
 
   @doc """
@@ -79,13 +79,17 @@ defmodule RationalNumbers do
     |> negative_normalization()
   end
 
+  defp nth_root(x, n) do
+    x ** (1/n)
+  end
+
   @spec negative_normalization(a :: rational) :: rational
   defp negative_normalization({a, b}) when a < 0 and b < 0, do: {a, b}
   defp negative_normalization({a, b}) when b < 0, do: {-a, -b}
   defp negative_normalization(a), do: a
 
   defp reduce_to_lowest_terms({a,b}) when a == b, do: {1,1}
-  defp reduce_to_lowest_terms({0,b}) , do: {0,1}
+  defp reduce_to_lowest_terms({0,_b}) , do: {0,1}
   defp reduce_to_lowest_terms({a,b}) do
     divisor = gcd(a,b)
     {div(a, divisor), div(b, divisor)}
