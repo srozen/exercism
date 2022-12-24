@@ -22,6 +22,6 @@ class BirdCount
   end
 
   def day_without_birds?
-    @current_week.find(&:zero?)
+    @current_week.any?(&:zero?)
   end
 end
