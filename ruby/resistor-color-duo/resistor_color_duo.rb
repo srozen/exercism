@@ -1,5 +1,5 @@
 module ResistorColorDuo
-  COLOR_VALUES = {
+  BANDS = {
     'black' => '0',
     'brown' => '1',
     'red' => '2',
@@ -13,10 +13,13 @@ module ResistorColorDuo
   }.freeze
 
   def self.value(colors)
-    colors.take(2).map do |color|
-      raise ArgumentError, "Available colors are: #{COLOR_VALUES.keys.join(', ')}" unless COLOR_VALUES.include? color
+    color_duo = colors.take(2)
+    unless color_duo.all? { |color| BANDS.include? color }
+      raise BandColorError, "Available colors are: #{BANDS.keys.join(', ')}"
+    end
 
-      COLOR_VALUES[color]
-    end.join.to_i
+    color_duo.each_with_object('') { |color, result| result << BANDS[color] }.to_i
   end
+
+  class BandColorError < ArgumentError; end
 end
