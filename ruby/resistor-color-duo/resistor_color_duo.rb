@@ -1,32 +1,22 @@
 module ResistorColorDuo
-  def self.value(colors)
-    colors.take(2).map { |c| value_from_color(c) }.join.to_i
-  end
+  COLOR_VALUES = {
+    'black' => '0',
+    'brown' => '1',
+    'red' => '2',
+    'orange' => '3',
+    'yellow' => '4',
+    'green' => '5',
+    'blue' => '6',
+    'violet' => '7',
+    'grey' => '8',
+    'white' => '9'
+  }.freeze
 
-  def self.value_from_color(color)
-    case color
-    when 'black'
-      '0'
-    when 'brown'
-      '1'
-    when 'red'
-      '2'
-    when 'orange'
-      '3'
-    when 'yellow'
-      '4'
-    when 'green'
-      '5'
-    when 'blue'
-      '6'
-    when 'violet'
-      '7'
-    when 'grey'
-      '8'
-    when 'white'
-      '9'
-    else
-      raise ArgumentError, 'The given color is not a resistance one.'
-    end
+  def self.value(colors)
+    colors.take(2).map do |color|
+      raise ArgumentError, "Available colors are: #{COLOR_VALUES.keys.join(', ')}" unless COLOR_VALUES.include? color
+
+      COLOR_VALUES[color]
+    end.join.to_i
   end
 end
