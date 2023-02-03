@@ -14,8 +14,12 @@ class Anagram
   end
 
   def match(words)
-    words.each_with_object(%w[]) do |potential_anagram, saved_anagrams|
-      saved_anagrams.push(potential_anagram) if potential_anagram.downcase != word && potential_anagram.downcase.chars.sort == sorted_word
-    end
+    words.select { |potential_anagram| is_anagram?(potential_anagram) }
+  end
+
+  private
+
+  def is_anagram?(anagram)
+    anagram.downcase != word && anagram.downcase.chars.sort == sorted_word
   end
 end
