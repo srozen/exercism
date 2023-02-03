@@ -16,7 +16,7 @@ module Tournament
           {}
         end
       end
-      display(ordered_results.sort_by { |k, v| [v[:P]]}.reverse )
+      display(ordered_results.sort_by { |k, v| [-v[:P], k]} )
     end
 
   private
