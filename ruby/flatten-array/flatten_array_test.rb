@@ -8,13 +8,11 @@ class FlattenArrayTest < Minitest::Test
   end
 
   def test_no_nesting
-    skip
     flat_array = FlattenArray.flatten([0, 1, 2])
     assert_equal [0, 1, 2], flat_array
   end
 
   def test_flattens_a_nested_array
-    skip
     assert_empty FlattenArray.flatten([[[]]])
   end
 

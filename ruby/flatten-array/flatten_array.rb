@@ -1,7 +1,22 @@
-=begin
-Write your code for the 'Flatten Array' exercise in this file. Make the tests in
-`flatten_array_test.rb` pass.
+module FlattenArray
+  class << self
+    def flatten(array)
+      result = []
+      until array.empty?
+        element = array.pop
+        if element.kind_of?(Array)
 
-To get started with TDD, see the `README.md` file in your
-`ruby/flatten-array` directory.
-=end
+        else
+          result.push(element)
+        end
+      end
+      result.reverse
+    end
+
+    private
+
+    def flatt(array, accumulator)
+
+    end
+  end
+end
