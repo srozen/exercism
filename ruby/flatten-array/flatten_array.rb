@@ -1,22 +1,21 @@
 module FlattenArray
   class << self
     def flatten(array)
-      result = []
-      until array.empty?
-        element = array.pop
-        if element.kind_of?(Array)
-
-        else
-          result.push(element)
-        end
-      end
-      result.reverse
+      accumulator = []
+      array.compact.each { |element| flat(element, accumulator) }
+      accumulator
     end
 
     private
 
-    def flatt(array, accumulator)
+    def flat(element, accumulator)
+      if element.is_a?(Array)
+        return if element.empty?
 
+        element.compact.each { |elem| flat(elem, accumulator) }
+      else
+        accumulator << element
+      end
     end
   end
 end
