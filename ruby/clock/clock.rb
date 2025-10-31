@@ -2,35 +2,25 @@ class Clock
   attr_reader :hours, :minutes
 
   def initialize(hour: 0, minute: 0)
-    @minutes = minute % 60
-    @hours = (hour + minute / 60) % 24
+    total_minutes = hour * 60 + minute
+
+    @minutes = total_minutes % 60
+    @hours = (total_minutes / 60) % 24
   end
 
   def to_s
-    "#{@hours.to_s.rjust(2, '0')}:#{@minutes.to_s.rjust(2, '0')}"
+    format('%02d:%02d', @hours, @minutes)
   end
 
   def ==(other)
-    self.class == other.class && state == other.state
+    other.instance_of?(self.class) && [@hours, @minutes] == [other.hours, other.minutes]
   end
 
   def +(other)
-    minutes = @minutes + other.minutes
-    @minutes = (minutes) % 60
-    @hours = (@hours + other.hours + (minutes) / 60) % 24
-    self
+    Clock.new(hour: @hours + other.hours, minute: @minutes + other.minutes)
   end
 
   def -(other)
-    minutes = @minutes - other.minutes
-    @minutes = minutes % 60
-    @hours = (@hours - other.hours + minutes / 60) % 24
-    self
-  end
-
-  protected
-
-  def state
-    [@hours, @minutes]
+    Clock.new(hour: @hours - other.hours, minute: @minutes - other.minutes)
   end
 end
