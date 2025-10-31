@@ -9,7 +9,7 @@ module Luhn
     sum = 0
     stripped_number.reverse.chars.each_with_index do |char, idx|
       num = char.to_i
-      if not idx.even?
+      if idx.odd?
         num *= 2
         sum += num >= 10 ? num - 9 : num
       else
