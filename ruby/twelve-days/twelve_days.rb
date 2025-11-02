@@ -22,7 +22,7 @@ module TwelveDays
 
     PRESENTS_DAYS.each_pair do |day, present|
       next_sequence = presents.empty? ? ', and ' : ', '
-      presents = [present, presents].join('')
+      presents = present + presents
       lyrics += TwelveDays.verse(day, presents)
       presents = next_sequence + presents
     end
